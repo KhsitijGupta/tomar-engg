@@ -10,6 +10,7 @@ dotenv.config();
 
 // Import routes
 const adminRoutes = require("./Routes/adminRoutes.js");
+const ProjectRoutes = require("./Routes/ProjectRoutes.js");
 const BannerRoutes = require("./Routes/BannerRoutes.js");
 const contactUsRoutes = require("./Routes/contactUsRoutes.js");
 
@@ -29,6 +30,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactUsRoutes);
 app.use("/api/banner", BannerRoutes);
+app.use("/api/project", ProjectRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {

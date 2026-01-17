@@ -1,26 +1,50 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
-
-import img6 from "../../../assets/Tomar-images/s11.jpeg";
-import img7 from "../../../assets/Tomar-images/s16.jpeg";
-import img8 from "../../../assets/Tomar-images/s18.jpeg";
-import img11 from "../../../assets/Tomar-images/s14.jpeg";
-
-const projects = [
-  { img: img6, title: "Industrial Steel Shed" },
-  { img: img7, title: "Warehouse Structure" },
-  { img: img8, title: "Heavy Steel Fabrication" },
-  { img: img11, title: "Manufacturing Facility" },
-];
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const FeaturedProjects = () => {
   const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch projects from backend
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await axios.get("/api/project/getAllProjects"); // your backend route
+        console.log(res.data.data);
+        setProjects(res.data.data); // expecting an array of projects
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full py-20 bg-white text-center">
+        <p className="text-gray-600">Loading projects...</p>
+      </section>
+    );
+  }
+
+  if (!projects.length) {
+    return (
+      <section className="w-full py-20 bg-white text-center">
+        <p className="text-gray-600">No projects available.</p>
+      </section>
+    );
+  }
 
   const activeProject = projects[activeIndex];
   const sideProjects = projects.filter((_, i) => i !== activeIndex);
-
+  const newprojects = sideProjects.slice(0, 4);
   return (
     <section className="w-full py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -43,49 +67,44 @@ const FeaturedProjects = () => {
           {/* BIG IMAGE */}
           <motion.div
             key={activeIndex}
-            className="md:col-span-2 h-105 relative overflow-hidden rounded-xl shadow-lg group"
+            className="md:col-span-2 h-[420px] relative overflow-hidden rounded-xl shadow-lg group"
           >
-            {/* IMAGE */}
             <img
-              src={activeProject.img}
-              alt={activeProject.title}
+              src={activeProject.image} // image from backend
+              alt={activeProject.projectName}
               className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
             />
 
-            {/* OVERLAY */}
-            <div
-              className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent
-                  opacity-100 group-hover:from-black/80 transition-all duration-500"
-            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-100 group-hover:from-black/80 transition-all duration-500" />
 
-            {/* TEXT CONTENT */}
             <div className="absolute bottom-6 left-6 right-6 text-white">
               <h3 className="text-xl md:text-2xl font-bold">
-                {activeProject.title}
+                {activeProject.projectName}
               </h3>
-
               <p className="mt-2 text-sm md:text-base text-gray-200 max-w-md">
-                Precision-engineered steel infrastructure designed for
-                durability, performance, and long-term industrial use.
+                {activeProject.description}
+              </p>
+              <p className="mt-1 text-gray-300 text-sm">
+                Location: {activeProject.location}
               </p>
             </div>
           </motion.div>
 
           {/* SIDE IMAGES */}
-          <div className="grid grid-cols-2 gap-6 h-100">
-            {sideProjects.map((project, index) => (
+          <div className="grid grid-cols-2 gap-6 h-[420px]">
+            {newprojects.map((project) => (
               <motion.div
-                key={index}
+                key={project._id}
                 onClick={() =>
                   setActiveIndex(
-                    projects.findIndex((p) => p.img === project.img)
+                    projects.findIndex((p) => p._id === project._id),
                   )
                 }
-                className="relative cursor-pointer overflow-hidden rounded-xl shadow-md group h-50"
+                className="relative cursor-pointer overflow-hidden rounded-xl shadow-md group h-[200px]"
               >
                 <img
-                  src={project.img}
-                  alt={project.title}
+                  src={project.image}
+                  alt={project.projectName}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </motion.div>

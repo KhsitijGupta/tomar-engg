@@ -76,7 +76,7 @@ const ProductAndServices = () => {
       <div className="pt-24">
         {/* Banner */}
         <Banner
-          title="Products & Services"
+          title="Our Services"
           subtitle="Steel Structure Sheds • Fabrication & Erection & Many More"
         />
 

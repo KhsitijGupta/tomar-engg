@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 const Projects = () => {
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="pt-24">
         <Banner
           title="Our Projects"
@@ -14,7 +14,7 @@ const Projects = () => {
         />
         <ProjectImages />
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

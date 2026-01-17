@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo/logo0.png";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Navbar = () => {
           {[
             { path: "/", label: "HOME" },
             { path: "/about-us", label: "ABOUT US" },
-            { path: "/products-services", label: "PRODUCTS & SERVICES" },
+            { path: "/products-services", label: "SERVICES" },
             { path: "/projects", label: "PROJECTS" },
           ].map(({ path, label }) => (
             <NavLink key={path} to={path} end>
@@ -79,21 +80,14 @@ const Navbar = () => {
 
         {/* Mobile Button */}
         <button
-          className="md:hidden relative w-8 h-8"
+          className="md:hidden p-2 rounded-md "
           onClick={() => setShowMenu(!showMenu)}
         >
-          <motion.span
-            animate={showMenu ? { rotate: 45, y: 4 } : {}}
-            className="absolute w-6 h-0.5 bg-black left-1"
-          />
-          <motion.span
-            animate={showMenu ? { opacity: 0 } : { opacity: 1 }}
-            className="absolute w-6 h-0.5 bg-black top-3 left-1"
-          />
-          <motion.span
-            animate={showMenu ? { rotate: -45, y: -2 } : {}}
-            className="absolute w-6 h-0.5 bg-black top-6 left-1"
-          />
+          {showMenu ? (
+            <X className="w-6 h-6 text-black" />
+          ) : (
+            <Menu className="w-6 h-6 text-black" />
+          )}
         </button>
       </div>
 
@@ -107,11 +101,11 @@ const Navbar = () => {
             transition={{ duration: 0.4 }}
             className="md:hidden bg-white border-t border-gray-200 shadow-lg overflow-hidden"
           >
-            <ul className="flex flex-col items-center gap-6 py-6 font-semibold">
+            <ul className="flex flex-col  gap-6 py-6 font-semibold">
               {[
                 { path: "/", label: "HOME" },
                 { path: "/about-us", label: "ABOUT US" },
-                { path: "/products-services", label: "PRODUCTS & SERVICES" },
+                { path: "/products-services", label: "SERVICES" },
                 { path: "/projects", label: "PROJECTS" },
                 { path: "/contact", label: "CONTACT" },
               ].map(({ path, label }) => (

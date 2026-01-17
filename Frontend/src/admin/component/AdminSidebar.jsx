@@ -17,6 +17,7 @@ import {
 import Dashboard from "../pages/Dashboard";
 import Users from "../pages/Users";
 import BannerManager from "../pages/BannerManager";
+import AdminProject from "../pages/AdminProject";
 import ContactQueries from "../pages/ContactQueries";
 
 export function AdminSidebar() {
@@ -96,6 +97,12 @@ export function AdminSidebar() {
       type: "single",
       submenu: [],
     },
+     {
+      label: "Project",
+      icon: Image,
+      type: "single",
+      submenu: [],
+    },
     {
       label: "Contact Queries",
       icon: MessageCircle,
@@ -147,7 +154,7 @@ export function AdminSidebar() {
             {!collapsed && (
               <div
                 className="flex flex-col cursor-pointer"
-                onClick={() => navigate("/home")}
+                onClick={() => navigate("/")}
               >
                 <img
                   src={logo}
@@ -296,6 +303,7 @@ export function AdminSidebar() {
             <Dashboard setActiveView={setActiveView} />
           )}
           {activeView === "Customers" && <Users />}
+          {activeView === "Project" && <AdminProject />}
           {activeView === "Home Banner" && <BannerManager />}
           {activeView === "Contact Queries" && <ContactQueries />}
         </main>

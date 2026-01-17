@@ -104,7 +104,7 @@ const Footer = () => {
       <div className="border-t border-gray-700"></div>
 
       {/* Bottom Bar */}
-      <div className="mx-4 sm:mx-[10%] py-5 flex flex-col md:flex-row justify-between items-center text-sm gap-3">
+      <div className="mx-4 sm:mx-[10%] py-5 flex flex-col md:flex-row justify-between items-center md:text-xs text-[9px] gap-3">
         <p>
           Developed and Managed by <a className="text-blue-400 underline" href="https://binarylogix.in/">Binarylogix Technologies LLP</a> © {new Date().getFullYear()}
         </p>
