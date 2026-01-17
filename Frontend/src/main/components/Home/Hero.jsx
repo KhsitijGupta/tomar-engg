@@ -94,6 +94,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import bg1 from "../../../assets/banner1.png";
+import bg2 from "../../../assets/banner2.png";
 
 const STATIC_CONTENT = {
   title: "Engineering Strength",
@@ -104,7 +106,7 @@ const STATIC_CONTENT = {
 
 const HeroCarousel = () => {
   const [index, setIndex] = useState(0);
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState([{ imageUrl: bg1 }, { imageUrl: bg2 }]);
   const navigate = useNavigate();
 
   /* ================= FETCH BANNERS ================= */
@@ -112,6 +114,7 @@ const HeroCarousel = () => {
     try {
       const { data } = await axios.get("/api/banner/getImages");
       setSlides(data.images || []);
+      console.log(data);
     } catch (error) {
       console.error("Failed to load banners", error);
     }
@@ -136,7 +139,7 @@ const HeroCarousel = () => {
 
   return (
     <section className="relative h-[90vh] pt-24 overflow-hidden">
-      <AnimatePresence >
+      <AnimatePresence>
         <motion.div
           key={index}
           className="absolute inset-0"
