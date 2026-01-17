@@ -113,7 +113,7 @@ const HeroCarousel = () => {
   const fetchBanners = async () => {
     try {
       const { data } = await axios.get("/api/banner/getImages");
-      setSlides(data.images || []);
+      setSlides(data.images || [{ imageUrl: bg1 }, { imageUrl: bg2 }]);
       console.log(data);
     } catch (error) {
       console.error("Failed to load banners", error);
